@@ -35,4 +35,4 @@ Proje, ASP.NET Core MVC kullanılarak geliştirilmiştir ve tamamen kendi verita
 
 ## 📄 Lisans
 
-Bu proje MIT lisansı ile lisanslanmıştır. Kişisel ve eğitim amaçlı kullanım serbesttir.
+
