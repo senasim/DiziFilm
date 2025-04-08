@@ -1,0 +1,241 @@
+﻿@using DiziFilm.Model.ViewModel.Areas.AdminPanel
+@section ContentHeader {
+}
+
+@model YonetmenIndexViewModel
+
+
+
+<main class="main-content">
+
+    <div class="content-inner container-fluid pb-0">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card pb-3">
+                    <div class="card-header border-bottom d-flex justify-content-between align-items-center py-3">
+                        <div class="d-flex align-items-center mt-3 gap-2">
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalYonetmenEkle">
+                                <i class="fa-solid fa-plus me-2"></i>Yönetmen Ekle
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-view table-responsive pt-3 table-space">
+                            <table id="tblYonetmen" class="data-tables table custom-table">
+                                <thead>
+                                    <tr class="text-uppercase">
+                                        <th></th>
+                                        <th>Adı</th>
+                                        <th>Soyadı</th>
+                                        <th>Cinsiyet</th>
+                                        <th>Doğum Tarihi</th>
+                                        <th>Biyografi</th>
+                                        <th>Yönetmen Türü</th>
+                                        <th></th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</main>
+
+
+
+
+
+<!--Ekleme Modal -->
+<div class="modal fade" id="modalYonetmenEkle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="oyuncu-modal-label">Yönetmen Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmYonetmenEkle" class="section-form">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label">
+                                    <strong>Adı</strong> <span class="text-danger">*</span>:
+                                </label>
+                                <input type="text" asp-for=Adi class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Soyadı</strong> <span class="text-danger">*</span>:
+                            </label>
+                            <input type="text" asp-for=Soyadi class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Cinsiyet</strong> <span class="text-danger">*</span>:
+                            </label>
+                            <select asp-for=Cinsiyet class="form-select" required>
+                                <option value="">Seçiniz..</option>
+                                <option value="0">Erkek</option>
+                                <option value="1">Kadın</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Doğum Tarihi</strong>:
+                            </label>
+                            <input type="date" asp-for=DogumTarihi class="form-control" name="DogumTarihi">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label">
+                                    <strong>Biyografi</strong>:
+                                </label>
+                                <textarea asp-for=MiniBio class="form-control" name="MiniBio" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Yönetmen Türü</strong> <span class="text-danger">*</span>:
+                            </label>
+                            <select asp-for=YonetmenTurId class="form-select" required>
+                                @foreach (var item in Model.YonetmenTurleri )
+                                {
+                                    <option value="@item.Id">@item.Tur</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" id="btnYonetmenEkle" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- güncelleme modalı -->
+<div class="modal fade" id="modalYonetmenGuncelle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="oyuncu-modal-label">Yönetmen Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmYonetmenGuncelle" class="section-form">
+                    <div class="row">
+                        <input type="hidden" class="form-control" id="GId">
+                        <div class="col-md-6">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label">
+                                    <strong>Adı</strong> <span class="text-danger">*</span>:
+                                </label>
+                                <input type="text" id="GAdi" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Soyadı</strong> <span class="text-danger">*</span>:
+                            </label>
+                            <input type="text" id="GSoyadi" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Cinsiyet</strong> <span class="text-danger">*</span>:
+                            </label>
+                            <select id="GCinsiyet" class="form-select" required>
+                                <option value="">Seçiniz..</option>
+                                <option value="0">Erkek</option>
+                                <option value="1">Kadın</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Doğum Tarihi</strong>:
+                            </label>
+                            <input type="date" id="GDogumTarihi" class="form-control" name="DogumTarihi">
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label">
+                                    <strong>Biyografi</strong>:
+                                </label>
+                                <textarea id="GMiniBio" class="form-control" name="MiniBio" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group px-3 mb-3">
+                            <label class="form-label">
+                                <strong>Yönetmen Türü</strong> <span class="text-danger">*</span>:
+                                <select id="GYonetmenTurId" class="form-select" required>
+                                    <option value="">Seçiniz..</option>
+                                    @foreach (var item in Model.YonetmenTurleri)
+                                    {
+                                        <option value="@item.Id">@item.Tur</option>
+                                    }
+                                </select>
+                            </label>
+                            
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" id="btnYonetmenGuncelle" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/adminassets/custom/yonetmen.js"></script>
+
+}

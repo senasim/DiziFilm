@@ -1,0 +1,127 @@
+﻿@using DiziFilm.Model.ViewModel.Areas.AdminPanel
+@section ContentHeader {
+}
+
+@model PlatformIndexViewModel
+
+<main class="main-content">
+    <div class="content-inner container-fluid pb-0">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card pb-3">
+                    <div class="card-header border-bottom d-flex justify-content-between align-items-center py-3">
+                        <div class="d-flex align-items-center mt-3 gap-2">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPlatformEkle">
+                                <i class="fa-solid fa-plus me-2"></i>Platform Ekle
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-view table-responsive pt-3 table-space">
+                            <table id="tblPlatform" class="data-tables table custom-table">
+                                <thead>
+                                    <tr class="text-uppercase">
+                                        <th></th>
+                                        <th>Platform Adı</th>
+                                        <th>Logo</th>
+                                        <th>İşlemler</th>
+                                        <th>Durum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Platform Ekle Modal -->
+<div class="modal fade" id="modalPlatformEkle" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Platform Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmPlatformEkle" class="section-form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label" for="txtAd">
+                                    <strong>Platform Adı</strong> <span class="text-danger">*</span>:
+                                </label>
+                                <input type="text" asp-for="PlatformAdi" class="form-control" id="txtAd" required>
+                            </div>
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label" for="logoUpload">
+                                    <strong>Logo</strong>:
+                                </label>
+                                <input type="file" class="filepond" name="logo" id="logoUpload" accept="image/*">
+                                <input type="hidden" id="logoPath" name="LogoUrl" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" id="btnPlatformEkle" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .logoimage {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .logoimage:hover {
+        transform: scale(1.1);
+    }
+    .modal-image {
+        max-width: 100%;
+        max-height: 80vh;
+    }
+</style>
+
+<!-- Logo Büyütme Modal -->
+<div class="modal fade" id="logoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Logo Görüntüle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" alt="Büyük Logo" class="modal-image">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="~/adminassets/custom/platform.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Logo büyütme
+            $(document).on('click', '.logoimage', function() {
+                const imgSrc = $(this).attr('src');
+                $('#modalImage').attr('src', imgSrc);
+                new bootstrap.Modal(document.getElementById('logoModal')).show();
+            });
+        });
+    </script>
+}

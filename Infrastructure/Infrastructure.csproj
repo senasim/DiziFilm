@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="Interceptors\**" />
+    <Compile Remove="Utility\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="Interceptors\**" />
+    <EmbeddedResource Remove="Utility\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="Interceptors\**" />
+    <None Remove="Utility\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CrossCuttingConcern\Communication\" />
+    <Folder Include="CrossCuttingConcern\Security\" />
+    <Folder Include="Data\Concrete\ADONET\" />
+    <Folder Include="Data\Concrete\Dapper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,234 @@
+﻿@using DiziFilm.Model.ViewModel.Front
+
+@{
+    Layout = null;
+}
+@model KullaniciSignUpVm
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>StreamIT | Responsive Bootstrap 5 Template</title>
+    <!-- Google Font Api KEY-->
+    <meta name="google_font_api" content="AIzaSyBG58yNdAjc20_8jAvLNSVi9E4Xhwjau_k">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/frontassets/images/favicon.ico" />
+
+    <!-- Library / Plugin Css Build -->
+    <link rel="stylesheet" href="/frontassets/css/core/libs.min.css" />
+
+    <!-- font-awesome css -->
+    <link rel="stylesheet" href="/frontassets/vendor/font-awesome/css/all.min.css" />
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" href="/frontassets/vendor/iconly/css/style.css" />
+
+    <!-- Animate css -->
+    <link rel="stylesheet" href="/frontassets/vendor/animate.min.css" />
+
+    <!-- Streamit Design System Css -->
+    <link rel="stylesheet" href="/frontassets/css/streamit.min.css?v=5.2.1" />
+
+    <!-- Custom Css -->
+    <link rel="stylesheet" href="/frontassets/css/custom.min.css?v=5.2.1" />
+
+    <!-- Rtl Css -->
+    <link rel="stylesheet" href="/frontassets/css/rtl.min.css?v=5.2.1" />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&display=swap" rel="stylesheet">
+   
+</head>
+
+<body class="  ">
+    <span class="screen-darken"></span>
+    <!-- loader Start -->
+    <!-- loader Start -->
+    <div class="loader simple-loader">
+        <div class="loader-body">
+            <img src="/frontassets/images/loader.gif" alt="loader" class="img-fluid " width="300">
+        </div>
+    </div>
+    <!-- loader END -->  <!-- loader END -->
+    <main class="main-content">
+        <!--Nav Start-->
+        <!--Nav End-->
+        <!--bread-crumb-->
+        <!--bread-crumb-->
+
+        <form id="frmKullaniciKayit" method="post" asp-antiforgery="true">
+            <div asp-validation-summary="All"></div>
+            <div class="vh-100" style="background: url('/frontassets/images/pages/01.webp'); background-size: cover; background-repeat: no-repeat; position: relative;min-height:500px">
+                <div class="container">
+                    <div class="row justify-content-center align-items-center height-self-center vh-100">
+                        <div class="col-lg-8 col-md-12 align-self-center">
+                            <div class="user-login-card bg-body">
+                                <h4 class="text-center mb-5">Hesabınızı Oluşturun</h4>
+                                <div class="row row-cols-1 row-cols-lg-2 g-2 g-lg-5">
+
+                                    
+                                    @* İSİM *@
+                                    <div class="col">
+                                        <label class="text-white fw-500 mb-2">Adı</label>
+                                        <input   asp-for="Adi"   type="text" class="form-control rounded-0" required="">
+                                        <span asp-validation-for="Adi" class="text-danger"></span>
+                                    </div>
+
+                                    
+                                    @* Soyisim *@
+                                    <div class="col">
+                                        <label class="text-white fw-500 mb-2">Last Name</label>
+                                        <input   asp-for="Soyadi"    type="text" class="form-control rounded-0" required="">
+                                        <span asp-validation-for="Soyadi" class="text-danger"></span>
+                                    </div>
+
+                                    @* Kullanıcı Adı *@
+                                    <div class="col">
+                                        <label class="text-white fw-500 mb-2">Username *</label>
+                                        <input   asp-for="KullaniciAdi"   type="text" class="form-control rounded-0" required="">
+                                        <span asp-validation-for="KullaniciAdi" class="text-danger"></span>
+                                    </div>
+
+                                    @* Email *@
+                                    <div class="col">
+                                        <label class="text-white fw-500 mb-2">Email *</label>
+                                        <input    asp-for="Email"    type="email" class="form-control rounded-0" required="">
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                    @* Şifre *@
+                                    <div class="col">
+                                        <label class="text-white fw-500 mb-2">Password *</label>
+                                        <input    asp-for="Sifre" type="password" class="form-control rounded-0" required="">
+                                        <span asp-validation-for="Sifre" class="text-danger"></span>
+                                    </div>
+
+                                    @* Şifre Tekrar *@
+                                    <div class="col">
+                                        <label class="text-white fw-500 mb-2">Confirm Password *</label>
+                                        <input  asp-for="SifreTekrar" type="password" class="form-control rounded-0" required="">
+                                        <span asp-validation-for="SifreTekrar" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+
+
+                                <label class="list-group-item d-flex align-items-center mt-5 mb-3 text-white"><input class="form-check-input m-0 me-2" type="checkbox">Okudum ve Kabul Ediyorum <a href="terms-of-use.html" class="ms-1">terms & conditions*</a></label>
+                                <div class="row text-center">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-6">
+                                        <div class="full-button">
+                                           
+                                            <div class="iq-button">
+                                                <button type="button" id="btnKayitOl" class="btn text-uppercase position-relative">
+                                                    <span class="button-text">Kayıt Ol</span>
+                                                    <i class="fa-solid fa-play"></i>
+                                                </button>
+                                            </div>
+                                            <p class="mt-2 mb-0 fw-normal">Bir Hesabınız Var Mı ?<a href="/Kullanici/Login" class="ms-1">Giriş Yap</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </main>
+
+
+    <div id="back-to-top" style="display: none;">
+        <a class="p-0 btn bg-primary btn-sm position-fixed top border-0 rounded-circle text-white" id="top" href="#top">
+            <i class="fa-solid fa-chevron-up"></i>
+        </a>
+    </div>
+    <!-- Wrapper End-->
+    <!-- Library Bundle Script -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/frontassets/js/core/libs.min.js"></script>
+    <!-- Plugin Scripts -->
+    <!-- Lodash Utility -->
+    <script src="/frontassets/vendor/lodash/lodash.min.js"></script>
+    <!-- External Library Bundle Script -->
+    <script src="/frontassets/js/core/external.min.js"></script>
+    <!-- countdown Script -->
+    <script src="/frontassets/js/plugins/countdown.js"></script>
+    <!-- utility Script -->
+    <script src="/frontassets/js/utility.js"></script>
+    <!-- Setting Script -->
+    <script src="/frontassets/js/setting.js"></script>
+    <script src="/frontassets/js/setting-init.js" defer></script>
+    <!-- Streamit Script -->
+    <script src="/frontassets/js/streamit.js" defer></script>
+    <script src="/frontassets/js/swiper.js" defer></script>
+    
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#btnKayitOl").click(
+                    function(){
+
+                        var form=$("#frmKullaniciKayit");
+                        if(form.valid()){
+
+
+                            $.ajax({
+
+                                url: "/Kullanici/Register",
+                                method:"post",
+                                dataType: "json",
+                                data:form.serialize(),
+                                success: function (r) {
+
+                                 if (r.result) {
+                        Swal.fire({
+                            title: "İşlem Başarılı",
+                            text: "Kayıt İşlemi Tamamlandı. Lütfen Mail Onayı İçin Emailinizi Kontrol Ediniz.",
+                            icon: "success"
+                        }).then((result) => {
+                            if (result.isConfirmed || result.isDismissed) {
+                                // Kullanıcı mesajı kapattığında yönlendir
+                                window.location.href = "/Home/Index";
+                            }
+                        });
+                    } else {
+                        var errorlist = "<ul>";
+                        for (var i = 0; i < r.errors.length; i++) {
+                            errorlist += "<li>" + r.errors[i] + " </li>";
+                        }
+                        errorlist += "</ul>";
+                        $("#errorpanel").html(errorlist);
+                    }
+                                },
+
+                                error:function(){}
+
+
+
+                            });
+                        }
+
+              });
+
+            });
+        </script>
+
+    
+</body>
+
+</html>
+
+
+

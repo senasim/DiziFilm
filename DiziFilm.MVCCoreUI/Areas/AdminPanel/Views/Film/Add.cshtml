@@ -1,0 +1,437 @@
+﻿@using DiziFilm.Model.ViewModel.Areas.AdminPanel
+@model FilmAddViewModel
+
+@section ContentHeader
+{
+
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Yeni Film Ekle</h5>
+                    <a href="@Url.Action("Index", "Film")" class="btn btn-outline-primary btn-sm">
+                        <i class="fa fa-arrow-left me-2"></i>Listeye Dön
+                    </a>
+                </div>
+                <div class="card-body">
+                    <form id="frmFilmEkle" method="post" enctype="multipart/form-data">
+                        <div class="section-form">
+                            <fieldset>
+                                <legend>Film Bilgileri</legend>
+                                <div class="row">
+                                    <!-- FİLM ADI -->
+                                    <div class="col-sm-12">
+                                        <div class="form-group px-3 mb-3">
+                                            <input type="hidden" id="FilmId" name="FilmId" value="0" />
+                                            <label class="form-label flex-grow-1" for="filmAdi">
+                                                <strong>Film Adı</strong> <span class="text-danger">*</span>:
+                                            </label>
+                                            <input id="filmAdi" asp-for="Adi" type="text" class="form-control" placeholder="Film İsmi Giriniz" required />
+                                            <span asp-validation-for="Adi" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- ACIKLAMA -->
+                                    <div class="col-sm-12">
+                                        <div class="form-group px-3 mb-3">
+                                            <label class="form-label flex-grow-1" for="Aciklama">
+                                                <strong>Açıklama</strong>:
+                                            </label>
+                                            <textarea asp-for="Aciklama" id="Aciklama" class="form-control" placeholder="Film açıklaması" rows="4"></textarea>
+                                            <span asp-validation-for="Aciklama" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- SÜRE -->
+                                    <div class="col-sm-6">
+                                        <div class="form-group px-3 mb-3">
+                                            <label class="form-label flex-grow-1" for="Sure">
+                                                <strong>Film Süresi (dk)</strong> <span class="text-danger">*</span>:
+                                            </label>
+                                            <input id="Sure" asp-for="Sure" type="number" class="form-control" placeholder="Dakika olarak süre" min="1" required />
+                                            <span asp-validation-for="Sure" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- ÇIKIŞ TARİHİ -->
+                                    <div class="col-sm-6">
+                                        <div class="form-group px-3 mb-3">
+                                            <label class="form-label flex-grow-1" for="CıkısTarihi">
+                                                <strong>Çıkış Tarihi</strong>:
+                                            </label>
+                                            <input id="CıkısTarihi" asp-for="CikisTarihi" type="date" class="form-control" />
+                                            <span asp-validation-for="CikisTarihi" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- TÜR -->
+                                    <div class="col-sm-6">
+                                        <div class="form-group px-3 mb-3">
+                                            <label class="form-label flex-grow-1" for="filmTuru">
+                                                <strong>Film Türleri</strong> <span class="text-danger">*</span>:
+                                            </label>
+                                            <select asp-for="FilmTurs" id="filmTurleriSelect" class="form-control js-example-basic-multiple" multiple>
+                                                @foreach (var tur in Model.Turler)
+                                                {
+                                                    <option value="@tur.Value">@tur.Text</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="FilmTurs" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- DİL -->
+                                    <div class="col-sm-6">
+                                        <div class="form-group px-3 mb-3">
+                                            <label class="form-label flex-grow-1" for="filmDili">
+                                                <strong>Film Dili</strong> <span class="text-danger">*</span>:
+                                            </label>
+                                            <select asp-for="DilId" asp-items="Model.Diller" id="filmDili" class="form-control" required>
+                                                <option value="">Dil Seçiniz</option>
+                                            </select>
+                                            <span asp-validation-for="DilId" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- OYUNCU BİLGİLERİ -->
+                                <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                                    <h5 class="mb-0">
+                                        <strong>Oyuncular</strong>
+                                    </h5>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#oyuncu-modal">
+                                        <i class="fa-solid fa-square-plus me-2"></i>Oyuncu Ekle
+                                    </button>
+                                </div>
+                                
+                                <div class="row px-3">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped" id="oyuncuTablosu">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>Oyuncu</th>
+                                                        <th>Rol</th>
+                                                        <th>İşlemler</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model.FilmOyuncus != null && Model.FilmOyuncus.Any())
+                                                    {
+                                                        @foreach (var item in Model.FilmOyuncus)
+                                                        {
+                                                            <tr class="text-center" id="oyuncu-@item.Id">
+                                                                <td>@item.Oyuncu.Adi @item.Oyuncu.Soyadi</td>
+                                                                <th>İşlemler</th>
+                                                                <td>@item.Rol</td>
+                                                                
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- YÖNETMEN BİLGİLERİ -->
+                                <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                                    <h5 class="mb-0">
+                                        <strong>Yönetmenler</strong>
+                                    </h5>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#yonetmen-modal">
+                                        <i class="fa-solid fa-square-plus me-2"></i>Yönetmen Ekle
+                                    </button>
+                                </div>
+                                
+                                <div class="row px-3">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped" id="yonetmenTablosu">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>Yönetmen</th>
+                                                        <th>İşlemler</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model.YonetmenFilms != null && Model.YonetmenFilms.Any())
+                                                    {
+                                                        @foreach (var item in Model.YonetmenFilms)
+                                                        {
+                                                            <tr class="text-center" id="yonetmen-@item.Id">
+                                                                <td>@item.Yonetmen.Adi @item.Yonetmen.Soyadi</td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center justify-content-center">
+                                                                        <button type="button" class="btn btn-sm text-danger border-0 yonetmen-sil"
+                                                                                data-id="@item.Id" title="Sil">
+                                                                            <i class="fa-solid fa-trash"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- PLATFORM BİLGİLERİ -->
+                                <div class="d-flex justify-content-between align-items-center my-4 px-3">
+                                    <h5 class="mb-0">
+                                        <strong>Platformlar</strong>
+                                    </h5>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#platform-modal">
+                                        <i class="fa-solid fa-square-plus me-2"></i>Platform Ekle
+                                    </button>
+                                </div>
+                                
+                                <div class="row px-3">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped" id="platformTablosu">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>Platform</th>
+                                                        <th>İşlemler</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model.FilmPlatforms != null && Model.FilmPlatforms.Any())
+                                                    {
+                                                        @foreach (var item in Model.FilmPlatforms)
+                                                        {
+                                                            <tr class="text-center" id="platform-@item.Id">
+                                                                <td>@item.Platform.PlatformAdi</td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center justify-content-center">
+                                                                        <button type="button" class="btn btn-sm text-danger border-0 platform-sil"
+                                                                                data-id="@item.Id" title="Sil">
+                                                                            <i class="fa-solid fa-trash"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            
+                            <!-- MEDYA BİLGİLERİ -->
+                            <fieldset class="mt-4">
+                                <legend>Medya</legend>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group px-3 mb-3">
+                                            <label class="form-label flex-grow-1" for="Thumbnail">
+                                                <strong>Küçük Resim</strong> <span class="text-danger">*</span>:
+                                            </label>
+                                            <input id="Thumbnail" name="Thumbnail" type="file" class="form-control" accept="image/*" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group px-3 mb-3">
+                                            <label class="form-label flex-grow-1" for="Poster">
+                                                <strong>Poster</strong> <span class="text-danger">*</span>:
+                                            </label>
+                                            <input id="Poster" name="Poster" type="file" class="form-control" accept="image/*" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            
+                            <div class="mt-4 px-3">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa-solid fa-floppy-disk me-2"></i>Kaydet
+                                </button>
+                                <a href="@Url.Action("Index", "Film")" class="btn btn-outline-secondary ms-2">
+                                    <i class="fa-solid fa-times me-2"></i>İptal
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- OYUNCU EKLEME MODAL -->
+<div class="modal fade" id="oyuncu-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="oyuncu-modal-label">Oyuncu Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmOyuncuEkle" class="section-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label" for="oyuncuSecimi">
+                                    <strong>Oyuncu</strong> <span class="text-danger">*</span>:
+                                </label>
+                                <select id="oyuncuSecimi" class="form-control" required>
+                                    <option value="">Oyuncu Seçiniz</option>
+                                    @foreach (var oyuncu in Model.Oyuncular)
+                                    {
+                                        <option value="@oyuncu.Value">@oyuncu.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label" for="rolAdi">
+                                    <strong>Rol</strong> <span class="text-danger">*</span>:
+                                </label>
+                                <input type="text" id="rolAdi" class="form-control" placeholder="Rol adını giriniz" required />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" id="btnOyuncuEkle" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- YÖNETMEN EKLEME MODAL -->
+<div class="modal fade" id="yonetmen-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="yonetmen-modal-label">Yönetmen Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmYonetmenEkle" class="section-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group px-3 mb-3">
+                                <label class="form-label" for="yonetmenSecimi">
+                                    <strong>Yönetmen</strong> <span class="text-danger">*</span>:
+                                </label>
+                                <select id="yonetmenSecimi" class="form-control" required>
+                                    <option value="">Yönetmen Seçiniz</option>
+                                    @foreach (var yonetmen in Model.Yonetmenler)
+                                    {
+                                        <option value="@yonetmen.Value">@yonetmen.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" id="btnYonetmenEkle" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- PLATFORM EKLEME MODAL -->
+<div class="modal fade" id="platform-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="platform-modal-label">Platform Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+            </div>
+            <div class="modal-body">
+                <form id="frmPlatformEkle" class="section-form">
+                    <div class="form-group mb-3">
+                        <label for="platformSecimi" class="form-label d-block">
+                            Platform <span class="text-danger">*</span>
+                        </label>
+                        <select id="platformSecimi" class="form-control" multiple>
+                            <option value="">Platform Seçiniz</option>
+                            @foreach (var platform in Model.Platformlar)
+                            {
+                                <option value="@platform.Value">@platform.Text</option>
+                            }
+                        </select>
+                        <small class="form-text text-muted">Birden fazla platform seçebilirsiniz</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" id="btnPlatformEkle" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container--bootstrap-5 .select2-selection {
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            border: 1px solid #ced4da;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--multiple {
+            min-height: 38px;
+        }
+
+            .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+                background-color: #f8f9fa;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 2px 8px;
+                margin-right: 5px;
+            }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Film türleri için Select2
+            $('#filmTurleriSelect').select2({
+                placeholder: "Film türlerini seçiniz",
+                allowClear: true,
+                width: '100%',
+                language: {
+                    noResults: function() {
+                        return "Sonuç bulunamadı";
+                    }
+                }
+            });
+
+            // Platform seçimi için Select2
+            $('#platformSecimi').select2({
+                placeholder: "Platform seçiniz",
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $('#platform-modal'),
+                language: {
+                    noResults: function() {
+                        return "Sonuç bulunamadı";
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="~/adminassets/custom/filmadd.js"></script>
+}

@@ -1,0 +1,97 @@
+﻿@using DiziFilm.Model.ViewModel.Areas.AdminPanel
+@section ContentHeader {
+
+}
+@model BolumIndexViewModel
+
+<main class="main-content">
+
+    <div class="content-inner container-fluid pb-0">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card pb-3">
+                    <div class="card-header border-bottom d-flex justify-content-between align-items-center py-3">
+                        <div class="d-flex align-items-center mt-3 gap-2">
+                            <button type="button" class="btn btn-primary">
+                                <i class="fa-solid fa-plus me-2"></i>Bölüm Ekle
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-view table-responsive pt-3 table-space">
+                            <table id="tblBolum" class="data-tables table custom-table">
+                                <thead>
+                                    <tr class="text-uppercase">
+                                        <th></th>
+                                        <th>Dizi</th>
+                                        <th>Bölüm Adı</th>
+                                        <th>Sezon</th>
+                                        <th>Bölüm No</th>
+                                        <th>Başlama Tarihi</th>
+                                        <th>Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Bölüm Modal -->
+<div class="modal fade" id="bolumModalEkle" tabindex="-1" aria-labelledby="bolumModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bolumModalLabel">Bölüm Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="bolumForm">
+                    <input type="hidden" asp-for="Id" asp id="bolumId" value="0" />
+                    <div class="mb-3">
+                        <label for="bolumAdi" class="form-label">Bölüm Adı</label>
+                        <input type="text"  asp-for=BolumAdi class="form-control" id="bolumAdi" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="diziId" class="form-label">Dizi</label>
+                        <select asp-for=DiziListe class="form-select" required>
+                            <option value="">Dizi Seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sezonId" class="form-label">Sezon</label>
+                        <select asp-for=SezonListe class="form-select" id="sezonId" required>
+                            <option value="">Sezon Seçiniz</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bolumSayisi" class="form-label">Bölüm Sayısı</label>
+                        <input  asp-for=BolumSayisi type="text" class="form-control" id="bolumSayisi">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sure" class="form-label">Süre (Dakika)</label>
+                        <input asp-for=Sure type="number" class="form-control" id="sure">
+                    </div>
+                    <div class="mb-3">
+                        <label for="yayinTarihi" class="form-label">Yayın Tarihi</label>
+                        <input asp-for=YayinTarihi type="date" class="form-control" id="yayinTarihi">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" id="btnBolumEkle">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/adminassets/custom/bolum.js"></script>
+}
+
+
