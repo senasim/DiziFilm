@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiziFilm.MVCCoreUI", "DiziFilm.MVCCoreUI\DiziFilm.MVCCoreUI.csproj", "{F6E42E78-E047-4B24-9734-CCD910A9C1B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{9EDA8CB8-FD58-4B92-89B9-8476FD4A1588}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiziFilm.Business", "DiziFilm.Business\DiziFilm.Business.csproj", "{E19AB1A4-8473-43B3-95E5-45F5AD685BF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiziFilm.Data", "DiziFilm.Data\DiziFilm.Data.csproj", "{96067211-8008-447D-BC07-C284A564ABAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiziFilm.Model", "DiziFilm.Model\DiziFilm.Model.csproj", "{0465ADEF-1262-408A-93E9-D34F82FD7D16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiziFilm.WebAPI", "DiziFilm.WebAPI\DiziFilm.WebAPI.csproj", "{C60D6237-A9F1-4C57-B95C-9E608C924682}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6E42E78-E047-4B24-9734-CCD910A9C1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E42E78-E047-4B24-9734-CCD910A9C1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E42E78-E047-4B24-9734-CCD910A9C1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E42E78-E047-4B24-9734-CCD910A9C1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EDA8CB8-FD58-4B92-89B9-8476FD4A1588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EDA8CB8-FD58-4B92-89B9-8476FD4A1588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EDA8CB8-FD58-4B92-89B9-8476FD4A1588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EDA8CB8-FD58-4B92-89B9-8476FD4A1588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E19AB1A4-8473-43B3-95E5-45F5AD685BF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E19AB1A4-8473-43B3-95E5-45F5AD685BF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E19AB1A4-8473-43B3-95E5-45F5AD685BF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E19AB1A4-8473-43B3-95E5-45F5AD685BF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96067211-8008-447D-BC07-C284A564ABAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96067211-8008-447D-BC07-C284A564ABAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96067211-8008-447D-BC07-C284A564ABAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96067211-8008-447D-BC07-C284A564ABAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0465ADEF-1262-408A-93E9-D34F82FD7D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0465ADEF-1262-408A-93E9-D34F82FD7D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0465ADEF-1262-408A-93E9-D34F82FD7D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0465ADEF-1262-408A-93E9-D34F82FD7D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C60D6237-A9F1-4C57-B95C-9E608C924682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60D6237-A9F1-4C57-B95C-9E608C924682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60D6237-A9F1-4C57-B95C-9E608C924682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60D6237-A9F1-4C57-B95C-9E608C924682}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5430E162-E62E-4E22-9C23-9AA5FAFFDCF9}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,273 @@
+﻿@using DiziFilm.Model.ViewModel.Areas.AdminPanel
+@section ContentHeader {
+
+}
+@model DiziIndexViewModel
+
+<main class="main-content">
+        
+<div class="content-inner container-fluid pb-0">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card pb-3">
+            <div class="card-header border-bottom d-flex justify-content-between align-items-center py-3">
+                <div class="d-flex align-items-center mt-3 gap-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDiziEkle">
+                        <i class="fa-solid fa-plus me-2"></i>Dizi Ekle
+                    </button>
+                </div>
+               
+            </div>
+            <div class="card-body">
+                <div class="table-view table-responsive pt-3 table-space">
+                    <table id="tblDizi" class="data-tables table custom-table">
+                        <thead>
+                            <tr class="text-uppercase">
+                                <th></th>
+                                <th>Dizi</th>
+                                <th>Türü</th>
+                                <th>Başlama Tarihi</th>
+                                <th>Bitiş Tarihi</th>
+                                 <th>Sezon</th>
+                                 <th>Bölüm</th>
+                                 <th>Dil</th>
+                                <th>Platform</th>
+                                <th>Durum</th>
+                               <th>İşlemler</th>
+                                
+                              </tr>
+                        </thead>
+                        
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+        
+    </div>
+    </div>
+</main>
+
+<form id="frmDiziEkle">
+
+    <div class="modal fade" id="modalDiziEkle" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Yeni Dizi Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="diziEkleForm">
+                        <div class="row mb-3">
+
+                            
+                            <div class="col-md-6">
+                                <label for="adi" class="form-label">Dizi Adı</label>
+                                <input type="text" class="form-control" asp-for=Adi name="Adi" required>
+                                <button type="button" class="btn btn-outline-secondary btn-sm mt-2" id="btnTmdbAra">
+                                    <i class="fa-solid fa-magnifying-glass"></i> TMDb'den Ara
+                                </button>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group px-3 mb-3">
+                                    <label class="form-label flex-grow-1" for="filmTuru">
+                                        <strong>Film Türleri</strong> <span class="text-danger">*</span>:
+                                    </label>
+                                    <select asp-for="Turler" id="filmTurleriSelect" class="form-control js-example-basic-multiple" multiple>
+                                        @foreach (var tur in Model.Turler)
+                                        {
+                                            <option value="@tur.Value">@tur.Text</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Turler" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="baslamaTarihi" class="form-control flatpickr_humandate flatpickr-input">Başlama Tarihi</label>
+                                <input type="date" class="form-control" asp-for=BaslamaTarihi name="BaslamaTarihi">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bitisTarihi" class="form-label">Bitiş Tarihi</label>
+                                <input type="date" class="form-control" asp-for=BitisTarihi name="BitisTarihi">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="sezonSayisi" class="form-label">Sezon Sayısı</label>
+                                <input type="number" class="form-control" asp-for=SezonSayisi name="SezonSayisi" min="1">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bolumSayisi" class="form-label">Bölüm Sayısı</label>
+                                <input type="number" class="form-control" asp-for=BolumSayisi name="BolumSayisi" min="1">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dilId" class="form-label">Dil</label>
+                                <select class="form-select select2" id="DilId" name="DilId" asp-items="Model.DillerList">
+                                    <option value="">Seçiniz</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="platformId" class="form-label">Platform</label>
+                                <select class="form-select" asp-for=PlatformId name="PlatformId">
+                                    <option value="">Seçiniz</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="yonetmenler" class="form-label">Yönetmenler</label>
+                                <select class="form-select" asp-for=Yonetmenler name="Yonetmenler" multiple>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="oyuncular" class="form-label">Oyuncular</label>
+                                <select class="form-select" asp-for=Oyuncular name="Oyuncular" multiple>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="aciklama" class="form-label">Açıklama</label>
+                            <textarea class="form-control" asp-for=Aciklama name="Aciklama" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" id="btnDiziKaydet">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="row mb-3">
+    <div class="col-md-12">
+        <div id="tmdbSonuclar" class="border rounded p-3" style="max-height: 300px; overflow-y: auto;"></div>
+    </div>
+</div>
+
+
+<form id="frmDiziGuncelle">
+
+    <div class="modal fade" id="modalDiziGuncelle" tabindex="-1" aria-labelledby="diziGuncelleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="diziGuncelleModalLabel">Dizi Düzenle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="diziGuncelleForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <input type="hidden" class="form-control" id="GId" />
+                                <label for="adi" class="form-label">Dizi Adı</label>
+                                <input type="text" class="form-control" id=GAdi name="Adi" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="turId" class="form-label">Türü</label>
+                                <select class="form-select" id=GTurler name="TurId" required>
+                                    <option value="">Seçiniz</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="baslamaTarihi" class="form-label">Başlama Tarihi</label>
+                                <input type="date" class="form-control" id=GBaslamaTarihi name="BaslamaTarihi">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bitisTarihi" class="form-label">Bitiş Tarihi</label>
+                                <input type="date" class="form-control" id=GBitisTarihi name="BitisTarihi">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="sezonSayisi" class="form-label">Sezon Sayısı</label>
+                                <input type="number" class="form-control" id=GSezonSayisi name="SezonSayisi" min="1">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bolumSayisi" class="form-label">Bölüm Sayısı</label>
+                                <input type="number" class="form-control" id=GBolumSayisi name="BolumSayisi" min="1">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dilId" class="form-label">Dil</label>
+                                <select class="form-select" id=GDilId name="DilId">
+                                    <option value="">Seçiniz</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="platformId" class="form-label">Platform</label>
+                                <select class="form-select" id=GPlatformId name="PlatformId">
+                                    <option value="">Seçiniz</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="yonetmenler" class="form-label">Yönetmenler</label>
+                                <select class="form-select" id=GYonetmenler name="Yonetmenler" multiple>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="oyuncular" class="form-label">Oyuncular</label>
+                                <select class="form-select" id=GOyuncular name="Oyuncular" multiple>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="afis" class="form-label">Afiş</label>
+                            <input type="file" class="form-control" id=GDiziAfis name="Afis">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="aciklama" class="form-label">Açıklama</label>
+                            <textarea class="form-control"id=GAciklama name="Aciklama" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" id="btnDiziGuncelle">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+ @section Scripts{
+     
+ <script src="~/adminassets/custom/dizi.js"></script>
+
+}
+

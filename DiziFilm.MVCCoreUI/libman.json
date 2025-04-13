@@ -1,0 +1,14 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "sweetalert2@11.15.10",
+      "destination": "wwwroot/sweetalert2/"
+    },
+    {
+      "library": "moment.js@2.30.1",
+      "destination": "wwwroot/moment.js/"
+    }
+  ]
+}
